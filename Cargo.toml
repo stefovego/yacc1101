@@ -1,0 +1,11 @@
+[package]
+name = "yacc1101"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+name = "yacc1101"
+path = "src/lib.rs"
+
+[dependencies]
+embedded-hal = "1.0.0"
