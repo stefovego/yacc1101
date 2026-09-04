@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-#[derive(Default, Debug)]
+#[derive(Default, Debug, Clone, Copy, PartialEq, Eq)]
 pub enum State {
     SLEEP = 0x00,
     #[default]
@@ -24,7 +24,9 @@ pub enum State {
     TX = 0x13,
     TX_END = 0x14,
     RXTX_SWITCH = 0x15,
-    TXFIFO_UNDERFLOW = 0x016,
+    TXFIFO_UNDERFLOW = 0x16,
+    /// MARCSTATE reported a value outside the documented 0x00-0x16 range.
+    Unknown,
 }
 
 impl From<u8> for State {
@@ -52,8 +54,8 @@ impl From<u8> for State {
             0x13 => State::TX,
             0x14 => State::TX_END,
             0x15 => State::RXTX_SWITCH,
-            0x016 => State::TXFIFO_UNDERFLOW,
-            _ => panic!("Unknown value: {}", value),
+            0x16 => State::TXFIFO_UNDERFLOW,
+            _ => State::Unknown,
         }
     }
 }
